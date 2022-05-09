@@ -50,35 +50,12 @@ async function showMyStories(e) {
 	$myStoryList.show();
 	$myStoryList.empty();
 	populateMyStories();
-
-	// console.log(currentUser.ownStories);
-	// console.log(currentUser);
 }
-
-// let myStories = [];
-// async function populateMyStories(params) {
-// 	myStories.push(currentUser.ownStories);
-// 	console.log(currentUser);
-
-// 	const builtStory = generateStoryMarkup(myStories);
-
-// 	$allStoriesList.prepend(builtStory);
-// 	$myStoryList.prepend(builtStory);
-// }
-// let main = document.querySelector('body');
-
-// main.addEventListener('click', populateMyStories);
-
 $navStories.on('click', showMyStories);
 
 $navFav.on('click', function(e) {
 	hidePageComponents();
-	$favStoryList.empty();
+	// $favStoryList.empty();
 	$favStoryList.show();
 	populateMyFavorites();
 });
-
-// this prevents all submit buttons from shutting down the page
-// $allSubmitButtons.on('click', function(e) {
-// 	e.preventDefault();
-// });

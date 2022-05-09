@@ -12,6 +12,8 @@ const $signupForm = $('#signup-form');
 
 const $navAll = $('#nav-all');
 
+const $storiesLists = $('.stories-list');
+
 const $navLogin = $('#nav-login');
 const $navUserProfile = $('#nav-user-profile');
 const $navLogOut = $('#nav-logout');

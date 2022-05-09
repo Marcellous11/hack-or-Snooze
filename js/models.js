@@ -113,7 +113,7 @@ class StoryList {
 		return story;
 	}
 
-	async removeStory(storyId) {
+	async removeStory(user, storyId) {
 		const remove = await axios({
 			url: `${BASE_URL}/stories/${storyId}`,
 			method: 'DELETE',
@@ -229,18 +229,25 @@ class User {
 		}
 	}
 
-	// 	async addFav(storyId) {
-	// 		const fav = await axios({
-	// 			url: `${BASE_URL}/users/${currentUser.username}/favorites/${storyId}`,
-	// 			method: 'POST',
-	// 			data: { token: currentUser.loginToken }
-	// 		});
-	// 	}
-	// 	async removeFav(storyId) {
-	// 		const fav = await axios({
-	// 			url: `${BASE_URL}/users/${currentUser.username}/favorites/${storyId}`,
-	// 			method: 'DELETE',
-	// 			data: { token: currentUser.loginToken }
-	// 		});
-	// 	}
+	async addFav(story) {
+		this.favorites.push(story);
+		await this._addOrRemoveFavorites('add', story);
+	}
+	async removeFav(story) {
+		this.favorites = this.favorites.filter((s) => s.storyId !== story.storyId);
+		await this._addOrRemoveFavorites('remove', story);
+	}
+	async _addOrRemoveFavorites(newState, story) {
+		const method = newState === 'add' ? 'POST' : 'DELETE';
+		const token = this.loginToken;
+		await axios({
+			url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
+			method: method,
+			data: { token }
+		});
+	}
+
+	isFavorite(story) {
+		return this.favorites.some((s) => s.storyId === story.storyId);
+	}
 }
